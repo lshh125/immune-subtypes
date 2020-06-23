@@ -1,0 +1,37 @@
+---
+title: "PDAC"
+output: html_notebook
+---
+
+```{r}
+library(Seurat)
+library(loomR)
+```
+
+```{r}
+obj <- readRDS("../data/PDAC/scRNA_fna_SeuratObject_ALL.rds")
+```
+
+```{r}
+DimPlot(obj, reduction = "umap")
+```
+
+```{r}
+FeaturePlot(obj, features = "IL23R")
+```
+
+
+```{r}
+loom <- as.loom(obj, filename = "../data/PDAC/scRNA_fna_SeuratObject_ALL.loom", verbose = TRUE)
+loom
+loom$close_all()
+```
+
+```{r}
+table(obj$cell.type)
+```
+
+```{r}
+
+```
+

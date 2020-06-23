@@ -1,0 +1,50 @@
+---
+title: "PDAC"
+output: html_notebook
+---
+
+```{r}
+library(Seurat)
+library(loomR)
+```
+
+```{r}
+data <- Read10X("../data/Ileum/")
+
+file = "../data/Ileum/Effi_tsne_final.txt"
+headers = read.csv(file, skip = 0, header = F, nrows = 1, as.is = T, sep='\t')
+meta.data = read.csv(file, skip = 2, header = F, sep='\t')
+colnames(meta.data) = headers
+rownames(meta.data) = meta.data$NAME
+```
+
+```{r}
+data = data[, rownames(meta.data)]
+obj <- CreateSeuratObject(data, meta.data = meta.data)
+rm(data)
+```
+
+
+```{r}
+
+```
+
+```{r}
+FeaturePlot(obj, features = "IL23R")
+```
+
+
+```{r}
+loom <- as.loom(obj, filename = "../data/PDAC/scRNA_fna_SeuratObject_ALL.loom", verbose = TRUE)
+loom
+loom$close_all()
+```
+
+```{r}
+table(obj$cell.type)
+```
+
+```{r}
+
+```
+
